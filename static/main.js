@@ -1,12 +1,26 @@
+function setLoading(loading) {
+    const body = document.querySelector('body');
+    const className = 'loading';
+
+    if (loading) {
+        body.classList.add(className);
+    } else {
+        body.classList.remove(className);
+    }
+}
+
 
 /**
  * Fetches all the wifi available and display it.
  */
 async function fetchWifi() {
+    setLoading(true);
     const data = await fetch('/wifi')
     const json = await data.json();
 
     drawList(json);
+
+    setLoading(false);
 }
 
 /**
@@ -14,6 +28,7 @@ async function fetchWifi() {
  * @param {*} elements 
  */
 function drawList(elements) {
+
     const parent = document.querySelector('.wifi-list');
 
    // Delete old data.
@@ -27,7 +42,22 @@ function drawList(elements) {
     elements.forEach(e => {
         const li = document.createElement('li');
 
-        li.innerHTML = e.name;
+        const naming = document.createElement('div');
+
+        const name = document.createElement('p');
+        name.innerHTML = e.name;
+
+        const address = document.createElement('p');
+        address.innerHTML = e.address;
+
+        naming.appendChild(name);
+        naming.appendChild(address);
+        li.appendChild(naming);
+
+        const quality = document.createElement('p');
+        quality.innerHTML = e.quality;
+
+        li.appendChild(quality)
 
         parent.appendChild(li);
     });

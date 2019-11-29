@@ -23,12 +23,12 @@ def wifi():
     if request.method == 'GET':
         cells = Cell.all(INTERFACE)
 
-        # Filters the cells.
-        filtered_cells = list(filter(lambda x: x.signal > MINIMAL_SIGNAL, cells))
-
         # Sorts by signal.
-        sorted_cells = sorted(filtered_cells, key=lambda c: c.signal)
+        sorted_cells = sorted(cells, key=lambda c: c.signal)
         sorted_cells.reverse()
+
+        # Filters the cells.
+        filtered_cells = list(filter(lambda x: x.signal > MINIMAL_SIGNAL, sorted_cells))
 
         # Get only the data that we want.
         dtos = list(map(lambda x: {
