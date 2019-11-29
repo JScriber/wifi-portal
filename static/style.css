@@ -67,11 +67,21 @@ button svg {
 .wifi-list li {
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   width: 100%;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 30px;
   color: #fff;
+}
+
+.wifi-list .informations {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.wifi-list .informations img {
+  height: 30px;
+  margin-right: 18px;
 }
 
 .wifi-list li:hover {
@@ -85,6 +95,12 @@ button svg {
 .wifi-list li p:last-child {
   opacity: .6;
   font-size: 13px;
+}
+
+.lock {
+  height: 20px !important;
+  opacity: .7;
+  margin-right: 0;
 }
 
 .loading .wifi .header .loader {

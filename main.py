@@ -4,7 +4,7 @@ from wifi import Cell
 app = Flask(__name__)
 
 INTERFACE = 'wlp5s0'
-MINIMAL_SIGNAL = -60
+MINIMAL_SIGNAL = -80
 
 
 @app.route("/")
@@ -34,7 +34,10 @@ def wifi():
         dtos = list(map(lambda x: {
             'name': x.ssid,
             'quality': x.quality,
-            'address': x.address
+            'address': x.address,
+            'signal': x.signal,
+            'encrypted': x.encrypted,
+            'channel': x.channel
         }, filtered_cells))
 
         return jsonify(dtos)

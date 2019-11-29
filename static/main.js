@@ -42,6 +42,31 @@ function drawList(elements) {
     elements.forEach(e => {
         const li = document.createElement('li');
 
+        const informations = document.createElement('div');
+        informations.classList.add('informations');
+
+        let intensity;
+
+        if (e.signal > -50) {
+            intensity = 'wifi-4';
+        } else {
+            if (e.signal < -70) {
+                intensity = 'wifi-1';
+            } else {
+                if (e.signal < -60) {
+                    intensity = 'wifi-2';
+                } else {
+                    intensity = 'wifi-3';
+                }
+            }
+        }
+
+        const image = document.createElement('img');
+
+        image.setAttribute('src', `/static/images/${intensity}.png`);
+
+        informations.appendChild(image);
+
         const naming = document.createElement('div');
 
         const name = document.createElement('p');
@@ -52,12 +77,16 @@ function drawList(elements) {
 
         naming.appendChild(name);
         naming.appendChild(address);
-        li.appendChild(naming);
+        informations.appendChild(naming);
+        li.appendChild(informations);
 
-        const quality = document.createElement('p');
-        quality.innerHTML = e.quality;
+        if (e.encrypted) {
+            const lock = document.createElement('img');
+            lock.classList.add('lock');
+            lock.setAttribute('src', '/static/images/lock.svg');
+            li.appendChild(lock);
+        }
 
-        li.appendChild(quality)
 
         parent.appendChild(li);
     });
